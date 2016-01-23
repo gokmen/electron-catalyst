@@ -1,17 +1,13 @@
 {
   "name": "electron-catalyst",
-  "version": "0.0.1",
-  "description": "
-    Package for electron app publishing which drastically decreases bundle
-    size by caching the prerequisites for apps to work. It depends catalyst
-    binary (cenkalti/catalyst).
-  ",
+  "version": "0.0.3",
+  "description": "Package for electron app publishing which drastically decreases bundle size by caching the prerequisites for apps to work. It depends catalyst binary (cenkalti/catalyst).",
   "bin": {
     "electron-catalyst": "cli.coffee"
   },
   "repository": {
     "type": "git",
-    "url": "github.com/gokmen/electron-catalyst"
+    "url": "https://github.com/gokmen/electron-catalyst"
   },
   "devDependencies": {
     "coffee-script": "^1.10.0",
