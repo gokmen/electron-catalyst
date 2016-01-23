@@ -22,6 +22,19 @@ module.exports = catalysify = (dir, appName, argv = {}) ->
   frameworks = glob.sync "#{dist}/Contents/Frameworks/*.framework"
 
   frameworks.forEach (framework) ->
-    console.log "> removing", framework
+    console.log '> removing', framework
     fs.removeSync framework
 
+  electronBinary = "#{dist}/Contents/MacOS/Electron"
+  console.log '> removing', electronBinary
+  fs.removeSync electronBinary
+
+  catalystBinary = "#{__dirname}/../catalyst/#{argv.platform}/catalyst"
+  console.log '> injecting', catalystBinary
+  fs.copySync catalystBinary, electronBinary
+
+  fs.chmodSync electronBinary, '755'
+
+  generateConfig = require './generateconfig'
+  console.log '> generating config', config = generateConfig argv
+  fs.writeFileSync "#{dist}/Contents/MacOS/catalyst.json", config
