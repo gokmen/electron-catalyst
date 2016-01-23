@@ -1,16 +1,13 @@
 module.exports = generateConfig = (options = {}) ->
 
-  { os, arch, version, baseUrl, main } = options
+  { os, arch, version, baseUrl, main } = (require './getdefaults') options
 
   os      ?= 'darwin'
-  arch    ?= 'x64'
-  version ?= '0.36.5'
   baseUrl ?= 'https://github.com/atom/electron/releases/download'
-  main    ?= 'Resources/app'
+  main    ?= '{$CWD}/Resources/app'
 
-  config       =
-    files      : []
-    entryPoint : ''
+  config   =
+    files  : []
 
   file = "electron-v#{version}-#{os}-#{arch}"
 
@@ -19,8 +16,9 @@ module.exports = generateConfig = (options = {}) ->
     destination : "#{file}"
 
   # TODO add ability to provide different entry points based on the platform
-  config.entryPoint = [
-    "#{file}/Electron.app/Contents/MacOS/Electron", main
+  config.command = 'open'
+  config.args = [
+    "{$CATALYST_DIR}/#{file}/Electron.app/Contents/MacOS/Electron", main
   ]
 
-  JSON.stringify config, ' ', 2
+  "#{JSON.stringify config, ' ', 2}\n"

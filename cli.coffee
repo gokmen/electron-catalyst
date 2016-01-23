@@ -5,7 +5,7 @@ argv       = require('yargs').argv
 exit       = require './src/exit'
 catalysify = require './src/catalysify'
 
-usage = fs.readFileSync(__dirname + '/usage.txt').toString()
+usage = fs.readFileSync("#{__dirname}/usage.txt").toString()
 
 [ sourceDir, appName ] = argv._
 
