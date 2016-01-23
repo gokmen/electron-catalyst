@@ -25,5 +25,3 @@ module.exports = catalysify = (dir, appName, argv = {}) ->
     console.log "> removing", framework
     fs.removeSync framework
 
-
-

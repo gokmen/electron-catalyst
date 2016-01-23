@@ -2,8 +2,8 @@
 
 fs         = require 'fs-extra'
 argv       = require('yargs').argv
-exit       = require './exit'
-catalysify = require './catalysify'
+exit       = require './src/exit'
+catalysify = require './src/catalysify'
 
 usage = fs.readFileSync(__dirname + '/usage.txt').toString()
 
@@ -17,7 +17,7 @@ if not sourceDir or not appName
 
 if argv.generateConfig
 
-  generateConfig = require './generateconfig'
+  generateConfig = require './src/generateconfig'
   exit.success generateConfig argv
 
 else if argv.catalystOnly
@@ -27,7 +27,7 @@ else if argv.catalystOnly
 
 else
 
-  generatePackage = require './generatepackage'
+  generatePackage = require './src/generatepackage'
 
   argv.name = appName
   argv.dir  = sourceDir
@@ -44,7 +44,7 @@ else
       console.log 'Electron package created in:', appPath[0]
       exit.success 'Skipping catalyst version'  if argv.skipCatalyst
 
-      argv = (require './getdefaults') argv
+      argv = (require './src/getdefaults') argv
       base = "#{argv.dir}/#{appName}-#{argv.platform}-#{argv.arch}/#{appName}.app"
 
       catalysify base, appName, argv
