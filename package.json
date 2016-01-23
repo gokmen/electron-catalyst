@@ -1,0 +1,20 @@
+{
+  "name": "electron-catalyst",
+  "version": "0.0.1",
+  "description": "Package for electron app publishing which drastically decreases bundle size by caching the prerequisites for apps to work.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/gokmen/electron-catalyst"
+  },
+  "keywords": [
+    "electron",
+    "electron-apps",
+    "bundle"
+  ],
+  "author": "Gokmen Goksel",
+  "license": "MIT"
+}
