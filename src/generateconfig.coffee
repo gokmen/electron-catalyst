@@ -25,8 +25,13 @@ module.exports = generateConfig = (options = {}) ->
       source      : "${CATALYST_DIR}/#{file}/Electron.app/Contents/Frameworks/#{framework}.framework"
       destination : "${BUNDLE_DIR}/Contents/Frameworks/#{framework}.framework"
 
+  config.actions.push
+    type        : 'copyFile'
+    source      : "${CATALYST_DIR}/#{file}/Electron.app/Contents/MacOS/Electron"
+    destination : "${BUNDLE_DIR}/Contents/MacOS/Electron"
+
   # TODO add ability to provide different entry points based on the platform
-  config.command = "${CATALYST_DIR}/#{file}/Electron.app/Contents/MacOS/Electron"
-  config.args    = [ "${BUNDLE_DIR}/Resources/app" ]
+  config.command = "open"
+  config.args    = [ "${BUNDLE_DIR}/Contents/MacOS/Electron" ]
 
   "#{JSON.stringify config, ' ', 2}\n"
