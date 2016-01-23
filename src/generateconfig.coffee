@@ -4,21 +4,29 @@ module.exports = generateConfig = (options = {}) ->
 
   os      ?= 'darwin'
   baseUrl ?= 'https://github.com/atom/electron/releases/download'
-  main    ?= '{$CWD}/Resources/app'
 
   config   =
-    files  : []
+    actions  : []
 
   file = "electron-v#{version}-#{os}-#{arch}"
 
-  config.files.push
+  config.actions.push
+    type        : 'get'
     source      : "#{baseUrl}/v#{version}/#{file}.zip"
-    destination : "#{file}"
+    destination : "${CATALYST_DIR}/#{file}"
+
+  frameworks = [ 'Electron Framework', 'Mantle', 'ReactiveCocoa', 'Squirrel']
+
+  # copyFile, copyTree
+
+  frameworks.forEach (framework) ->
+    config.actions.push
+      type        : 'copyTree'
+      source      : "${CATALYST_DIR}/#{file}/Electron.app/Contents/Frameworks/#{framework}.framework"
+      destination : "${BUNDLE_DIR}/Contents/Frameworks/#{framework}.framework"
 
   # TODO add ability to provide different entry points based on the platform
-  config.command = 'open'
-  config.args = [
-    "{$CATALYST_DIR}/#{file}/Electron.app/Contents/MacOS/Electron", main
-  ]
+  config.command = "${CATALYST_DIR}/#{file}/Electron.app/Contents/MacOS/Electron"
+  config.args    = [ "${BUNDLE_DIR}/Resources/app" ]
 
   "#{JSON.stringify config, ' ', 2}\n"
